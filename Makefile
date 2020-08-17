@@ -14,7 +14,7 @@ REGRESS = smlar int2 int4 int8 float4 float8 money oid \
 		composite_int4 composite_text
 
 ifdef USE_PGXS
-PG_CONFIG = pg_config
+PG_CONFIG ?= pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)
 else

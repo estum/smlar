@@ -243,7 +243,7 @@ getHashedCache(void *cache)
 			int		index = HASHVAL(hash);
 
 			stat->helems[i].hash = hash;
-			stat->helems[i].idfMin = stat->helems[i].idfMax = stat->elems[i].idf;	
+			stat->helems[i].idfMin = stat->helems[i].idfMax = stat->elems[i].idf;
 			if ( stat->selems[index].idfMin == 0.0 )
 				stat->selems[index].idfMin = stat->selems[index].idfMax = stat->elems[i].idf;
 			else if ( stat->selems[index].idfMin > stat->elems[i].idf )
@@ -380,7 +380,7 @@ gsmlsign_compress(PG_FUNCTION_ARGS)
 		retval = (GISTENTRY *) palloc(sizeof(GISTENTRY));
 		gistentryinit(*retval, PointerGetDatum(sign),
 						entry->rel, entry->page,
-						entry->offset, FALSE);
+						entry->offset, false);
 	}
 	else if ( ISSIGNKEY(DatumGetPointer(entry->key)) &&
 				!ISALLTRUE(DatumGetPointer(entry->key)) )
@@ -404,7 +404,7 @@ gsmlsign_compress(PG_FUNCTION_ARGS)
 
 			gistentryinit(*retval, PointerGetDatum(sign),
 							entry->rel, entry->page,
-							entry->offset, FALSE);
+							entry->offset, false);
 		}
 	}
 
@@ -425,7 +425,7 @@ gsmlsign_decompress(PG_FUNCTION_ARGS)
 
 		gistentryinit(*retval, PointerGetDatum(key),
 						entry->rel, entry->page,
-						entry->offset, FALSE);
+						entry->offset, false);
 
 		PG_RETURN_POINTER(retval);
 	}
@@ -1006,12 +1006,12 @@ gsmlsign_consistent(PG_FUNCTION_ARGS)
 			{
 				double power = ((double)(query->size)) * ((double)(SIGLENBIT));
 
-				if ( ((double)(query->size)) / sqrt(power) >= GetSmlarLimit() ) 
+				if ( ((double)(query->size)) / sqrt(power) >= GetSmlarLimit() )
 					res = true;
 			}
 			else
 			{
-				res = true;	
+				res = true;
 			}
 		}
 		else
@@ -1049,12 +1049,12 @@ gsmlsign_consistent(PG_FUNCTION_ARGS)
 						{
 							sumK += h->idfMin * h->idfMin;
 							sumU += h->idfMax * maxKTF * s->df[i];
-						} 
+						}
 					}
 
 					if ( sumK > 0.0 && sumQ > 0.0 && sumU / sqrt( sumK * sumQ ) >= GetSmlarLimit() )
 					{
-						/* 
+						/*
 						 * More precisely calculate sumK
 						 */
 						h = NULL;
@@ -1062,7 +1062,7 @@ gsmlsign_consistent(PG_FUNCTION_ARGS)
 
 						for(i=0;i<key->size;i++)
 						{
-							h = getHashedElemIdf(stat, GETARR(key)[i], h);					
+							h = getHashedElemIdf(stat, GETARR(key)[i], h);
 							if (h)
 								sumK += h->idfMin * h->idfMin;
 						}
@@ -1141,7 +1141,7 @@ gsmlsign_consistent(PG_FUNCTION_ARGS)
 
 						if ( sumK > 0.0 && sumQ > 0.0 && sumU / sqrt( sumK * sumQ ) >= GetSmlarLimit() )
 						{
-							/* 
+							/*
 							 * More precisely calculate sumK
 							 */
 							sumK = 0.0;
